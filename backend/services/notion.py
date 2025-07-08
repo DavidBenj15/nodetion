@@ -7,6 +7,7 @@ import logging
 from dotenv import load_dotenv
 from typing import Dict, List, Tuple, Any
 from pprint import pprint
+from transformers import AutoTokenizer
 
 # --- 1. Centralized Logging (Best Practice) ---
 logging.basicConfig(
@@ -124,7 +125,9 @@ async def get_block_contents(block_id: str) -> Tuple[List[Tuple[str | None, str]
     return all_blocks_data, current_subpage_ids
 
 
-# ... (imports and global definitions remain the same) ...
+def split_text_by_tokens(text: str, tokenizer: Any, max_tokens: int, overlap_tokens: int) -> List[str]:
+    chunks = []
+    return chunks
 
 # Redefine apply_hierarchy to yield chunks with context and metadata
 def apply_hierarchy_and_chunk(

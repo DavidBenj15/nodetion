@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  chromadb:
+    # Use latest (as of writing) Chroma image
+    image: chromadb/chroma:1.0.14.dev51
+    # Map port 8000 on machine to port 8000 in container (the default port ChromaDB listens to).
+    # => can access port 8000 from machine.
+    ports: 
+      - "8000:8000"
+    # Define a volume for persistent data storage.
+    volumes:
+      - chroma_data:/chroma/chroma-data # The path inside the container where ChromaDB stores the data.
+    # If the container stops, always try to restart it, unless it was explicitly stopped.
+    restart: unless-stopped
+
+  fastapi:
+    build: ./backend
+    ports:
+      - "8001:8001"
+    volumes:
+      - ./backend:/app  # Mount your backend code
+    depends_on:
+      - chromadb
+    environment:
+      - CHROMADB_HOST=chromadb
+      - CHROMADB_PORT=8000
+    restart: unless-stopped
+
+# The volumes used by the service
+volumes:
+  chroma_data:
