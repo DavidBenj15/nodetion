@@ -202,7 +202,7 @@ def clear_database():
     """
     try:
         # Delete all documents
-        collection.delete(where={})
+        collection.delete(ids=collection.get()['ids'])
         print("🗑️  Database cleared successfully")
         return {
             "success": True,
