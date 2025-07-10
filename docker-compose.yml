@@ -27,6 +27,19 @@ services:
       - CHROMADB_PORT=8000
     restart: unless-stopped
 
+  frontend:
+    build: ./frontend
+    ports: 
+      - "5173:5173"
+    volumes:
+      - ./frontend:/app
+    depends_on:
+      - fastapi
+    environment:
+      - VITE_API_URL=http://localhost:8001
+    restart: unless-stopped
+
+
 # The volumes used by the service
 volumes:
   chroma_data:
