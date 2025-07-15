@@ -1,11 +1,18 @@
-import { Grid } from '@chakra-ui/react';
+import { Flex, Text } from '@chakra-ui/react';
 import SearchBar from './components/SearchBar';
 
 const Home = () => {
   return (
-    <Grid gap={4}>
+    <Flex
+      flexDirection="column"
+      alignItems="center"
+      justifyContent="center"
+      height="100%"
+      gap={4}
+    >
+      <Text textStyle="2xl">What's on your mind?</Text>
       <SearchBar />
-    </Grid>
+    </Flex>
   );
 };
 
