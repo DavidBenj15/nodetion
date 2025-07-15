@@ -33,18 +33,22 @@ def post_root():
 def get_root():
     return test_get()
 
-@app.post("/search")
-def search_documents_endpoint(request: SearchRequest):
+@app.get("/documents")
+def search_documents_endpoint(query: str, top_k: Optional[int] = 5):
     """
     Search for documents in ChromaDB based on a user query.
     
     Args:
-        request: SearchRequest containing query and optional top_k parameter
+        query: Search query string from URL parameters
+        top_k: Optional number of results to return (default: 5)
     
     Returns:
         JSON response with matching documents and metadata
     """
-    return search_documents(request.query, request.top_k)
+    print("hit")
+    results = search_documents(query, top_k)
+    print(results)
+    return results
 
 @app.post("/seed")
 def seed_database_endpoint():
